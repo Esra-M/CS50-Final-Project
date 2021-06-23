@@ -4,14 +4,17 @@
     Login
 {% endblock %}
 
-
 {% block styles %}
-    "/static/index.css"
+    "/static/login-register.css"
 {% endblock %}
-
 
 {% block body %}
 
-    <h1>LOGIN!</h1>
+    <div class="login-form">
+        <h1>Memories</h1>
+        <input autocomplete="off" type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </div> 
 
 {% endblock %}

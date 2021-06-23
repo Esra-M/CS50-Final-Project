@@ -1,0 +1,67 @@
+:root {
+    --main-color:aquamarine;
+    --field-color: aquamarine;
+    --heading-color: #001e20;
+    --text-color: white;
+  }
+
+body{
+    background-color: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100vh;
+}
+
+.login-form{
+    min-width: 250px;
+    max-width: 400px;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 2px solid var(--heading-color);
+    box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    border-radius: 10px;
+    padding-bottom: 5vh;
+    font-size: 20px;
+}
+
+.login-form *{
+    font-size: 15px;
+    padding: 1vh;
+    margin: 0 4vmin 2vh;
+    border: none;
+    border-radius: 5px;
+}
+
+.login-form h1{
+    font-family: 'Dancing Script', cursive;
+    align-items: center;
+    color:var(--text-color);
+    background-color: var(--heading-color);
+    text-align: center;
+    font-size: 45px;
+    padding: 2vh 0;
+    margin: -0.15vh -0.1vw 4vh -0.1vw;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+input[type=text], input[type=password]{
+    background-color: var(--field-color);
+    color: var(--heading-color);
+    border-bottom: 1px solid black;
+}
+
+input[type=submit]{
+    margin-top: 1vh;
+    margin-bottom: -1vh;
+    background-color: var(--heading-color);
+    color: var(--text-color);
+}
+
+input[type=text]::placeholder, input[type=password]::placeholder{
+    color: var(--heading-color);
+}
