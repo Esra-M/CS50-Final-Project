@@ -13,9 +13,12 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register",  methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if request.method == "POST":
+        return redirect("/")
+    else:
+        return render_template("register.html")
 
 @app.route("/logout")
 def logout():
