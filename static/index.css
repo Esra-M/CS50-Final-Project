@@ -1,9 +1,39 @@
-body{
+:root {
+    --main-color:aquamarine;
+    --field-color: aquamarine;
+    --heading-color: #001e20;
+    --text-color: white;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: var(--main-color);
+    color: var(--heading-color)
+}
+
+.main{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    height: 100vh;
-    font-size: 5vw;
-    background-color:aquamarine;
+    font-size: 40px;
+    height: 90vh;
+}
+
+nav{
+    display: block;
+    text-align: right;
+    font-size: 20px;
+    padding: 2vh 5vw;
+}
+
+nav a{
+    padding: 0 1vw;
+    text-decoration: none;
+    color: var(--heading-color)
+}
+
+nav a:hover{
+    opacity: .6;
 }

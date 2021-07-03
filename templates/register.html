@@ -12,10 +12,36 @@
 <form action="/register" method="post">
     <div class="login-form">
         <h1>Memories</h1>
-        <input autocomplete="off" type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="password" placeholder="Confirm Password" required>
+        <input autocomplete="off" type="text" name="username" placeholder="Username" required
+            {% if nameError or passError %}
+                value={{ username }}
+            {% endif %}
+        >
+        
+        {% if nameError %}
+            <p class="error">{{ nameError }}</p>
+        {% endif %}
+
+        <input type="password" name="password" placeholder="Password" required
+            {% if nameError or passError %}
+                value={{ password }}
+            {% endif %}
+        >
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required
+            {% if nameError or passError %}
+                value={{ confirmation }}
+            {% endif %}
+        >
+        
+        {% if passError %}
+            <p class="error">{{ passError }}</p>
+        {% endif %}
+        
         <input type="submit" value="Register">
+        <div class="message">
+            Already have an account? 
+            <a href={{ url_for('login') }}>Login!</a>
+        </div>
     </div> 
 </form>
 {% endblock %}

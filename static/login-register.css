@@ -1,7 +1,8 @@
 :root {
     --main-color:aquamarine;
     --field-color: aquamarine;
-    --heading-color: #001e20;
+    --heading-color: hsl(184, 100%, 6%);
+    --lightheading-color: hsl(184, 100%, 6%, .5);
     --text-color: white;
   }
 
@@ -24,14 +25,14 @@ body{
     border: 2px solid var(--heading-color);
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
     border-radius: 10px;
-    padding-bottom: 5vh;
+    padding-bottom: 1vh;
     font-size: 20px;
 }
 
 .login-form *{
     font-size: 15px;
-    padding: 1vh;
-    margin: 0 4vmin 2vh;
+    padding: 1vh 1vw;
+    margin: 0 4vw 2vh;
     border: none;
     border-radius: 5px;
 }
@@ -71,7 +72,7 @@ input[type=text]:focus, input[type=password]:focus{
 
 input[type=submit]{
     margin-top: 1vh;
-    margin-bottom: -1vh;
+    margin-bottom: 1vh;
     background-color: var(--heading-color);
     color: var(--text-color);
 }
@@ -79,4 +80,22 @@ input[type=submit]{
 input[type=submit]:hover{
     opacity: .9;
     cursor: pointer;
+}
+
+.error{
+    margin-top: -2vh;
+    margin-bottom: .5vh;
+    padding: 0 1vw;
+    background-color:  var(--lightheading-color);
+}
+
+.message a{
+    margin: -5px;
+    text-decoration: none;
+    color: var(--heading-color);
+    opacity: .8;
+}
+
+.message a:hover{
+    opacity: 1;
 }
