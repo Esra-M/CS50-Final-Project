@@ -13,13 +13,17 @@
 {% block body %}
 
     <nav>
-        <a href={{ url_for('login') }}>Login</a>
-        |
-        <a href={{ url_for('register') }}>Register</a>
+        {% if logged == false %}
+            <a href={{ url_for('login') }}>Login</a>
+            |
+            <a href={{ url_for('register') }}>Register</a>
+        {% else %}
+            <a href={{ url_for('logout') }}>Logout</a>
+        {% endif %}
     </nav>
 
     <div class="main">
-        <h1>HELLO!</h1>
+        <h1>Hello{{ username }}!</h1>
     </div>
 
 {% endblock %}
