@@ -15,30 +15,49 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # home page
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
 
     # connect to the database
     con = sqlite3.connect("memories.db")
     cur = con.cursor()
-    
-    # if logged in display the name of the user and give option to log out
-    if session.get('user_id'):
-        logged = True
 
-        # get the users name
-        userID = session['user_id']
-        cur.execute("SELECT username FROM users WHERE userID = ?", (userID,))
-        username = " " + cur.fetchall()[0][0]
+    if request.method == "POST":
+
+        # get the note information from the form
+        noteName = request.form.get("note-name")
+        note = request.form.get("note")
+
+        # check if there is a user
+        if session.get('user_id'):
+            # get the user id
+            userID = session['user_id']
+        else:
+            userID = -1
+
+        # update the notes database with the note information
+        cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
         con.commit()
 
-        return render_template("index.html", username=username, logged=logged)
+        return redirect("/")
     else:
-        # if not logged in don't display the users name and give options to log in and register
-        username=""
-        logged = False
-        return render_template("index.html", username=username, logged=logged)
-    
+        # if logged in display the name of the user and give option to log out
+        if session.get('user_id'):
+            logged = True
+
+            # get the users name
+            userID = session['user_id']
+            cur.execute("SELECT username FROM users WHERE userID = ?", (userID,))
+            username = " " + cur.fetchall()[0][0]
+            con.commit()
+
+            return render_template("index.html", username=username, logged=logged)
+        else:
+            # if not logged in don't display the users name and give options to log in and register
+            username=""
+            logged = False
+            return render_template("index.html", username=username, logged=logged)
+
 
 # login
 @app.route("/login",  methods=["GET", "POST"])
@@ -73,10 +92,11 @@ def login():
         return redirect("/")
     else:
 
-        # don't let the user to go back to the login page if already loged in
+        # don't let the user to go back to the login page if already logged in
         if session.get('user_id'):
+            # ??????????? back button does not eqial redirecting to a page ???????????? 
+            # print("******** " + str(session.get('user_id')))
             return redirect("/")
-
         return render_template("login.html")
 
 # register
@@ -129,7 +149,7 @@ def register():
 
     else:
 
-        # don't let the user to go back to the register page if already loged in
+        # don't let the user to go back to the register page if already logged in
         if session.get('user_id'):
             return redirect("/")
 
