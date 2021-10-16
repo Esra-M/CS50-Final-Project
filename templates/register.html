@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block styles %}
-    "/static/login-register.css"
+<link href="/static/login-register.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 <form action="/register" method="post">
     <div class="login-form">
         <h1>Memories</h1>
-        <input autocomplete="off" type="text" name="username" placeholder="Username" required
+        <input autofocus autocomplete="off" type="text" name="username" placeholder="Username" required
             {% if nameError or passError %}
                 value={{ username }}
             {% endif %}

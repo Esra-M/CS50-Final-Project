@@ -1,0 +1,33 @@
+{% extends "layout-nav.html" %}
+
+{% block title %}
+    My Memories
+{% endblock %}
+
+
+{% block styles %}
+<link href="/static/nav.css" rel="stylesheet">
+<link href="/static/myMemories.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block main %}
+  <main>
+    <h1>My Memories!</h1>
+
+    <table id="memoriesTable">
+      <tr>
+        <th>Heading</th>
+        <th>Note</th>
+      </tr>
+
+      {% for row in rows %}
+      <tr>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+      </tr>
+      {% endfor %}
+        
+    </table>
+  </main>
+{% endblock %}

@@ -1,0 +1,33 @@
+:root {
+    --main-color:aquamarine;
+    --field-color: #001e20;
+    --heading-color: #001e20;
+    --text-color: white;
+    --secondary-color: white;
+    --secondary-dark-color: #001e20;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1vh 5vw;
+}
+
+h1{
+    align-self: center;
+}
+
+table{
+    table-layout: fixed;
+}
+
+td{
+    border: 1px solid;
+    max-width: 40vw;
+    word-wrap: break-word;
+}
+
+th{
+    border: 2px solid;
+}

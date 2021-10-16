@@ -3,6 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
 from tempfile import mkdtemp
 import sqlite3
+import random
 
 # Configure application
 app = Flask(__name__)
@@ -17,46 +18,26 @@ Session(app)
 # home page
 @app.route("/", methods=["GET", "POST"])
 def index():
-
-    # connect to the database
+    
     con = sqlite3.connect("memories.db")
     cur = con.cursor()
 
-    if request.method == "POST":
+    # if logged in display the name of the user and give option to log out
+    if session.get('user_id'):
+        logged = True
 
-        # get the note information from the form
-        noteName = request.form.get("note-name")
-        note = request.form.get("note")
-
-        # check if there is a user
-        if session.get('user_id'):
-            # get the user id
-            userID = session['user_id']
-        else:
-            userID = -1
-
-        # update the notes database with the note information
-        cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
+        # get the users name
+        userID = session['user_id']
+        cur.execute("SELECT username FROM users WHERE userID = ?", (userID,))
+        username = " " + cur.fetchall()[0][0]
         con.commit()
 
-        return redirect("/")
+        return render_template("index.html", username=username, logged=logged)
     else:
-        # if logged in display the name of the user and give option to log out
-        if session.get('user_id'):
-            logged = True
-
-            # get the users name
-            userID = session['user_id']
-            cur.execute("SELECT username FROM users WHERE userID = ?", (userID,))
-            username = " " + cur.fetchall()[0][0]
-            con.commit()
-
-            return render_template("index.html", username=username, logged=logged)
-        else:
-            # if not logged in don't display the users name and give options to log in and register
-            username=""
-            logged = False
-            return render_template("index.html", username=username, logged=logged)
+        # if not logged in don't display the users name and give options to log in and register
+        username=""
+        logged = False
+        return render_template("index.html", username=username, logged=logged)
 
 
 # login
@@ -166,6 +147,57 @@ def logout():
     return redirect("/")
 
 # add
-@app.route("/add")
+@app.route("/add",  methods=["GET", "POST"])
 def add():
-    return render_template("add.html")
+
+    # connect to the database
+    con = sqlite3.connect("memories.db")
+    cur = con.cursor()
+
+    # check if the user is logged in
+    if session.get('user_id'):
+        logged = True
+    else:
+        logged = False
+
+    if request.method == "POST":
+        
+        # get the note information from the form
+        noteName = request.form.get("note-name")
+        note = request.form.get("note")
+
+        # check if the user is logged in
+        if session.get('user_id'):
+            # get the user id
+            userID = session['user_id']
+            
+            # update the notes database with the note information
+            cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
+            con.commit()
+
+        return redirect("/")
+    else:
+        return render_template("add.html", logged=logged)
+
+# my memories
+@app.route("/myMemoiries")
+def myMemoiries():
+
+    # connect to the database
+    con = sqlite3.connect("memories.db")
+    cur = con.cursor()
+
+    # check if the user is logged in
+    if session.get('user_id'):
+        logged = True
+        userID = session['user_id']
+
+        # select the users notes
+        cur.execute("SELECT * FROM notes WHERE userID = ?", (userID,))
+        rows = cur.fetchall()
+        con.commit()
+
+        return render_template("myMemories.html", logged=logged, rows=rows)
+    
+    else:
+        return redirect("/login")

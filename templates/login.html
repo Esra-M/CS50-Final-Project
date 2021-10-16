@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block styles %}
-    "/static/login-register.css"
+<link href="/static/login-register.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -18,7 +18,7 @@
             <p class="error">{{ userError }}</p>
         {% endif %}
 
-        <input autocomplete="off" type="text" name="username" placeholder="Username" required
+        <input autofocus autocomplete="off" type="text" name="username" placeholder="Username" required
             {% if userError %}
                 value={{ username }}
             {% endif %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+    {% block body %}
+    <nav>
+        <div class="heading">
+            <a  href={{ url_for('index') }}>Memories</a>
+        </div>
+        {% if logged == true %}
+            <a class="nav-but" href={{ url_for('myMemoiries') }}>My Memories</a>
+            <a class="nav-but" href={{ url_for('add') }}>Add</a>
+            <a class="logout" href={{ url_for('logout') }}>Logout</a>
+        {% else %}
+            <a class="login" href={{ url_for('login') }}>Login</a>
+            <a href={{ url_for('register') }}>Register</a>
+        {% endif %}
+    </nav>
+
+    {% block main %}{% endblock %}
+    {% endblock %}
+
