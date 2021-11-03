@@ -1,5 +1,5 @@
 :root {
-    --main-color:aquamarine;
+    --main-color:rgb(199, 255, 236);
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
@@ -8,26 +8,51 @@
 }
 
 main{
+    margin: 40px 5vw;
+}
+
+.container{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    grid-auto-rows: 180px;
+    column-gap: 2vw;
+    row-gap: 20px;
+}
+
+@media (min-width: 400px) {
+    .container{
+        grid-template-columns: repeat(3, minmax(100px, 1fr)); 
+    }
+}
+
+.note{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 1vh 5vw;
+    border: solid;
+    border-radius: 10px;
+    font-size: 20px;
 }
 
-h1{
-    align-self: center;
+.note-heading{
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background-color: var(--field-color);
+    color: white;
 }
 
-table{
-    table-layout: fixed;
-}
-
-td{
-    border: 1px solid;
-    max-width: 40vw;
+.note-content{
+    flex: 1;
     word-wrap: break-word;
-}
-
-th{
-    border: 2px solid;
+    overflow: hidden;
+    column-width: 100vw;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: white;
 }

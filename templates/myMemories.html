@@ -8,26 +8,23 @@
 {% block styles %}
 <link href="/static/nav.css" rel="stylesheet">
 <link href="/static/myMemories.css" rel="stylesheet">
-{% endblock %}
+{% endblock %}s
 
 
 {% block main %}
   <main>
-    <h1>My Memories!</h1>
-
-    <table id="memoriesTable">
-      <tr>
-        <th>Heading</th>
-        <th>Note</th>
-      </tr>
+    <div class="container">
 
       {% for row in rows %}
-      <tr>
-          <td>{{ row[1] }}</td>
-          <td>{{ row[2] }}</td>
-      </tr>
+
+        <div class="note">
+          <div class="note-heading">{{ row[1] }}</div>
+          <div class="note-content">{{ row[2] }}</div>
+        </div>
+
       {% endfor %}
-        
-    </table>
+      
+    </div>
   </main>
+
 {% endblock %}

@@ -1,10 +1,18 @@
 :root {
-    --main-color:aquamarine;
+    --main-color:rgb(199, 255, 236);
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
-    --secondary-color: white;
+    --secondary-color: #ffffff;
     --secondary-dark-color: #001e20;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
 }
 
 .note-cont{

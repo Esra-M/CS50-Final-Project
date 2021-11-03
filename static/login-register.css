@@ -1,6 +1,6 @@
 :root {
-    --main-color:aquamarine;
-    --field-color: aquamarine;
+    --main-color:rgb(199, 255, 236);
+    --field-color: rgb(199, 255, 236);
     --heading-color: hsl(184, 100%, 6%);
     --lightheading-color: hsl(184, 100%, 6%, .5);
     --text-color: white;

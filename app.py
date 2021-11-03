@@ -201,3 +201,17 @@ def myMemoiries():
     
     else:
         return redirect("/login")
+
+# profile
+@app.route("/profile")
+def profile():
+
+    
+    # check if the user is logged in
+    if session.get('user_id'):
+
+        logged = True
+        
+        return render_template("profile.html", logged=logged)
+    else:
+        return redirect("/login")
