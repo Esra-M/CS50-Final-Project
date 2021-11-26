@@ -1,6 +1,6 @@
 :root {
     --main-color:rgb(199, 255, 236);
-    --field-color: rgb(199, 255, 236);
+    --field-color: rgb(221, 253, 242);
     --heading-color: hsl(184, 100%, 6%);
     --lightheading-color: hsl(184, 100%, 6%, .5);
     --text-color: white;
@@ -15,21 +15,21 @@ body{
     height: 100vh;
 }
 
-.login-form{
+.form{
     min-width: 250px;
     max-width: 400px;
     width: 40vw;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    border: 2px solid var(--heading-color);
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    background-color: var(--field-color);
     border-radius: 10px;
     padding-bottom: 1vh;
     font-size: 20px;
 }
 
-.login-form *{
+.form *{
     font-size: 15px;
     padding: 1vh 1vw;
     margin: 0 4vw 2vh;
@@ -37,15 +37,16 @@ body{
     border-radius: 5px;
 }
 
-.login-form h1{
+.form h1{
     font-family: 'Dancing Script', cursive;
     align-items: center;
-    color:var(--text-color);
+    color: var(--text-color);
     background-color: var(--heading-color);
     text-align: center;
     font-size: 45px;
     padding: 2vh 0;
     margin: -0.15vh -0.1vw 4vh -0.1vw;
+    border-radius: 0;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
 }

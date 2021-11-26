@@ -3,7 +3,7 @@
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
-    --secondary-color: white;
+    --secondary-color: rgb(221, 253, 242);
     --secondary-dark-color: #001e20;
 }
 
@@ -29,9 +29,16 @@ main{
 .note{
     display: flex;
     flex-direction: column;
-    border: solid;
     border-radius: 10px;
     font-size: 20px;
+    box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    background-color: var(--secondary-color);
+    white-space: pre-wrap;
+}
+
+.note:hover{
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .note-heading{
@@ -54,5 +61,4 @@ main{
     padding: 10px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background-color: white;
 }

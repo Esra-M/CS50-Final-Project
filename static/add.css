@@ -3,60 +3,75 @@
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
-    --secondary-color: #ffffff;
+    --secondary-color: rgb(221, 253, 242);
     --secondary-dark-color: #001e20;
 }
 
 main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 90vh;
 }
 
-.note-cont{
-    min-width: none;
-    width: 40vw;
-    height: 50vh;
+.note{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--secondary-dark-color);
-    padding: 2vh 2vw;
+    min-width: 300px;
+    width: 40vw;
+    height: 500px;
+    margin-top: 10vh;
     border-radius: 10px;
+    box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    background-color: var(--secondary-color);
 }
 
-.note-cont-r1{
+.note-r1{
+    height: 60px;
     display: flex;
     flex-direction: row;
-    margin-bottom: 1.5vh;
-}
-
-.note-name{
-    width: 33vw;
-    height: 5vh;
-    font-size: 25px;
-    resize: none;
-    outline:none;
-    margin-right: 1vw;
-    background-color: var(--secondary-color);
+    align-items: center;
+    background-color: var(--field-color);
     border-top-left-radius: 10px;
-}
-
-.note{
-    width: 40vw;
-    height: 40vh;
-    font-size: 15px;
-    resize: none;
-    outline:none;
-    background-color: var(--secondary-color);
-
-}
-
-.add{
-    width: 6vw;
-    height: 6vh;
     border-top-right-radius: 10px;
+}
+
+.note-content, .note-heading{
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    resize: none;
+    padding: 10px 2vw;
+}
+
+.note-heading{
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+
+
+.note-content{
+    height: 100%;
+    font-size: 15px;
+}
+
+.save{
+    width: 80px;
+    height: 35px;
+    margin-right: 2vw;
+    border: none;
+    cursor: pointer;
+    background: none;
+    color: white;
+    border: 2px solid var(--secondary-color);
+    /* box-shadow: 0 0 40px -10px var(--secondary-color); */
+    font-size: 15px;
+    border-radius: 50px;
+}
+
+.save:hover{
+    color: var(--secondary-color);
+    transform: scale(1.03);
 }

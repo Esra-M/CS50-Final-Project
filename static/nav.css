@@ -5,7 +5,7 @@
     --text-color: white;
     --secondary-color: white;
     --secondary-dark-color: #001e20;
-  }
+}
 
 body {
     display: flex;
@@ -20,7 +20,14 @@ nav{
     color: var(--text-color);
     text-align: right;
     font-size: 20px;
-    padding: 15px 3vw;
+    padding: 15px 8vw;
+}
+
+@media (max-width: 600px){
+    nav{
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
 }
 
 nav a{
