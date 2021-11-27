@@ -1,21 +1,44 @@
 {% extends "layout.html" %}
 
-    {% block body %}
-    <nav>
-        <div class="heading">
-            <a  href={{ url_for('index') }}>Memories</a>
+{% block js %}
+<script src="{{url_for('static', filename='nav.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+
+<nav>
+
+    <div class="container">
+        <div class="title">
+            <a href={{ url_for( 'index' ) }}>Memories</a>
         </div>
         {% if logged == true %}
-            <a class="nav-but" href={{ url_for('profile') }}>Profile</a>
-            <a class="nav-but" href={{ url_for('myMemoiries') }}>My Memories</a>
-            <a class="nav-but" href={{ url_for('add') }}>Add</a>
-            <a class="logout" href={{ url_for('logout') }}>Logout</a>
+        <div class="navbar-links">
+            <ul>
+                <li><a class="nav-but" href={{ url_for( 'profile' ) }}>Profile</a></li>
+                <li><a class="nav-but" href={{ url_for( 'myMemoiries' ) }}>My Memories</a></li>
+                <li><a class="nav-but" href={{ url_for( 'add' ) }}>Add</a></li>
+            </ul>
+        </div>
+        <div class="login">
+            <a class="logout" href={{ url_for( 'logout' ) }}>Logout</a>
+        </div>
         {% else %}
-            <a class="login" href={{ url_for('login') }}>Login</a>
-            <a href={{ url_for('register') }}>Register</a>
+        <div class="login">
+            <ul>
+                <li><a class="login" href={{ url_for( 'login' ) }}>Login</a></li>
+                <li><a href={{ url_for( 'register' ) }}>Register</a></li>
+            </ul>
+        </div>
         {% endif %}
-    </nav>
+        <div class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
 
-    {% block main %}{% endblock %}
-    {% endblock %}
+</nav>
 
+{% block main %}{% endblock %}
+{% endblock %}

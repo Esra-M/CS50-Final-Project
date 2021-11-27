@@ -1,7 +1,7 @@
 {% extends "layout-nav.html" %}
 
 {% block title %}
-    My Memories
+My Memories
 {% endblock %}
 
 
@@ -12,19 +12,19 @@
 
 
 {% block main %}
-  <main>
-    <div class="container">
+<main>
+  <div class="grid-container">
 
-      {% for row in rows %}
+    {% for row in rows %}
 
-        <div class="note">
-          <div class="note-heading">{{ row[1] }}</div>
-          <div class="note-content">{{ row[2] }}</div>
-        </div>
-
-      {% endfor %}
-      
+    <div class="note">
+      <div class="note-heading">{{ row[1] }}</div>
+      <div class="note-content">{{ row[2] }}</div>
     </div>
-  </main>
+
+    {% endfor %}
+
+  </div>
+</main>
 
 {% endblock %}

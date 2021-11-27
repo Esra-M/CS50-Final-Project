@@ -1,5 +1,5 @@
 :root {
-    --main-color:rgb(199, 255, 236);
+    --main-color: rgb(199, 255, 236);
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
@@ -7,26 +7,28 @@
     --secondary-dark-color: #001e20;
 }
 
-main{
+main {
     margin: 40px 5vw;
 }
 
-.container{
+.grid-container {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    margin: 0 auto;
+    width: min(90vw, 80rem);
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     grid-auto-rows: 180px;
     column-gap: 2vw;
     row-gap: 20px;
 }
 
 @media (min-width: 400px) {
-    .container{
-        grid-template-columns: repeat(3, minmax(100px, 1fr)); 
+    .grid-container {
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
     }
 }
 
-.note{
+.note {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -36,12 +38,12 @@ main{
     white-space: pre-wrap;
 }
 
-.note:hover{
+.note:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
 
-.note-heading{
+.note-heading {
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
@@ -53,7 +55,7 @@ main{
     color: white;
 }
 
-.note-content{
+.note-content {
     flex: 1;
     word-wrap: break-word;
     overflow: hidden;

@@ -1,5 +1,5 @@
 :root {
-    --main-color:rgb(199, 255, 236);
+    --main-color: rgb(199, 255, 236);
     --field-color: #001e20;
     --heading-color: #001e20;
     --text-color: white;
@@ -7,18 +7,18 @@
     --secondary-dark-color: #001e20;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 90vh;
 }
 
-.note{
+.note {
     display: flex;
     flex-direction: column;
     min-width: 300px;
-    width: 40vw;
+    width: min(90%, 40rem);
     height: 500px;
     margin-top: 10vh;
     border-radius: 10px;
@@ -26,7 +26,7 @@ main{
     background-color: var(--secondary-color);
 }
 
-.note-r1{
+.note-r1 {
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -36,7 +36,8 @@ main{
     border-top-right-radius: 10px;
 }
 
-.note-content, .note-heading{
+.note-content,
+.note-heading {
     background: none;
     border: none;
     outline: none;
@@ -45,19 +46,18 @@ main{
     padding: 10px 2vw;
 }
 
-.note-heading{
+.note-heading {
     width: 100%;
     color: white;
     font-size: 20px;
 }
 
-
-.note-content{
+.note-content {
     height: 100%;
     font-size: 15px;
 }
 
-.save{
+.save {
     width: 80px;
     height: 35px;
     margin-right: 2vw;
@@ -66,12 +66,11 @@ main{
     background: none;
     color: white;
     border: 2px solid var(--secondary-color);
-    /* box-shadow: 0 0 40px -10px var(--secondary-color); */
     font-size: 15px;
     border-radius: 50px;
 }
 
-.save:hover{
+.save:hover {
     color: var(--secondary-color);
     transform: scale(1.03);
 }
