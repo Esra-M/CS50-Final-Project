@@ -15,12 +15,12 @@
 <main>
     <form action="/add" method="post" class="note"  id="note">
         <div class="note-r1">
-            <textarea autofocus class="note-heading" maxlength="50"  spellcheck="false" rows = "1" cols = "1" name="note-name"></textarea>
+            <textarea autofocus class="note-heading" maxlength="50"  spellcheck="false" rows = "1" name="note-heading"></textarea>
             <button class="save" type="submit" form="note">
                 Save
             </button>
         </div>
-        <textarea class="note-content" spellcheck="false" rows = "1" cols = "1" name="note"></textarea>
+        <textarea class="note-content" spellcheck="false" name="note-content"></textarea>
     </form>
 </main>
 {% endblock %}

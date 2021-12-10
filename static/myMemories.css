@@ -1,14 +1,14 @@
 :root {
     --main-color: rgb(199, 255, 236);
-    --field-color: #001e20;
-    --heading-color: #001e20;
+    --main-light-color: rgb(221, 253, 242);
+    --dark-color: #001e20;
     --text-color: white;
-    --secondary-color: rgb(221, 253, 242);
-    --secondary-dark-color: #001e20;
 }
 
 main {
     margin: 40px 5vw;
+    display: flex;
+    justify-content: center;
 }
 
 .grid-container {
@@ -34,7 +34,7 @@ main {
     border-radius: 10px;
     font-size: 20px;
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
-    background-color: var(--secondary-color);
+    background-color: var(--main-light-color);
     white-space: pre-wrap;
 }
 
@@ -51,16 +51,106 @@ main {
     padding: 10px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-    background-color: var(--field-color);
+    background-color: var(--dark-color);
     color: white;
 }
 
 .note-content {
-    flex: 1;
     word-wrap: break-word;
     overflow: hidden;
     column-width: 100vw;
     padding: 10px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.overDisplay {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .5;
+    z-index: 1;
+}
+
+.noteEdit {
+    position: fixed;
+    top: 50px;
+    display: none;
+    flex-direction: column;
+    width: min(85%, 40rem);
+    height: min(500px, 70%);
+    margin-top: 10vh;
+    border-radius: 10px;
+    box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    background-color: var(--main-light-color);
+    z-index: 1;
+}
+
+.noteEdit-r1 {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--dark-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.noteEdit-content,
+.noteEdit-heading {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    resize: none;
+    padding: 10px 2vw;
+}
+
+.noteEdit-heading {
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+
+.noteEdit-content {
+    height: 100%;
+    font-size: 15px;
+}
+
+.saveEdit {
+    width: 80px;
+    height: 35px;
+    margin-right: 2vw;
+    margin-left: 1vw;
+    border: none;
+    cursor: pointer;
+    background: none;
+    color: white;
+    border: 2px solid var(--main-light-color);
+    font-size: 15px;
+    border-radius: 50px;
+}
+
+.saveEdit:hover {
+    color: var(--main-light-color);
+    transform: scale(1.03);
+}
+
+.noteEdit-heading::-webkit-scrollbar {
+    width: .1rem;
+    background-color: var(--dark-color);
+}
+
+.noteEdit-content::-webkit-scrollbar {
+    width: .1rem;
+    background-color: var(--main-light-color);
+}
+
+.noteEdit-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--dark-color);
 }

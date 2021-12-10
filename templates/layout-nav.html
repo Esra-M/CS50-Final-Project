@@ -1,9 +1,5 @@
 {% extends "layout.html" %}
 
-{% block js %}
-<script src="{{url_for('static', filename='nav.js')}}"></script>
-{% endblock %}
-
 {% block body %}
 
 <nav>
@@ -40,5 +36,8 @@
 
 </nav>
 
+<script src="{{url_for('static', filename='nav.js')}}"></script>
+
 {% block main %}{% endblock %}
+
 {% endblock %}

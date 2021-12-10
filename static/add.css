@@ -1,10 +1,8 @@
 :root {
     --main-color: rgb(199, 255, 236);
-    --field-color: #001e20;
-    --heading-color: #001e20;
+    --main-light-color: rgb(221, 253, 242);
+    --dark-color: #001e20;
     --text-color: white;
-    --secondary-color: rgb(221, 253, 242);
-    --secondary-dark-color: #001e20;
 }
 
 main {
@@ -17,13 +15,12 @@ main {
 .note {
     display: flex;
     flex-direction: column;
-    min-width: 300px;
     width: min(90%, 40rem);
     height: 500px;
     margin-top: 10vh;
     border-radius: 10px;
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
-    background-color: var(--secondary-color);
+    background-color: var(--main-light-color);
 }
 
 .note-r1 {
@@ -31,7 +28,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: var(--field-color);
+    background-color: var(--dark-color);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -61,16 +58,32 @@ main {
     width: 80px;
     height: 35px;
     margin-right: 2vw;
+    margin-left: 1vw;
     border: none;
     cursor: pointer;
     background: none;
     color: white;
-    border: 2px solid var(--secondary-color);
+    border: 2px solid var(--main-light-color);
     font-size: 15px;
     border-radius: 50px;
 }
 
 .save:hover {
-    color: var(--secondary-color);
+    color: var(--main-light-color);
     transform: scale(1.03);
+}
+
+.note-heading::-webkit-scrollbar {
+    width: .1rem;
+    background-color: var(--dark-color);
+}
+
+.note-content::-webkit-scrollbar {
+    width: .1rem;
+    background-color: var(--main-light-color);
+}
+
+.note-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--dark-color);
 }

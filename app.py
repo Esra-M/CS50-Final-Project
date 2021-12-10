@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, render_template, g, url_for, session
+from flask import Flask, redirect, request, render_template, g, url_for, session, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
 from tempfile import mkdtemp
@@ -83,8 +83,6 @@ def login():
 
         # don't let the user to go back to the login page if already logged in
         if session.get('user_id'):
-            # ??????????? back button does not eqial redirecting to a page ???????????? 
-            # print("******** " + str(session.get('user_id')))
             return redirect("/")
         return render_template("login.html")
 
@@ -172,15 +170,15 @@ def add():
     if request.method == "POST":
         
         # get the note information from the form
-        noteName = request.form.get("note-name")
-        note = request.form.get("note")
+        noteName = request.form.get("note-heading")
+        note = request.form.get("note-content")
 
         # check if the user is logged in
         if session.get('user_id'):
             # get the user id
             userID = session['user_id']
             
-            # update the notes database with the note information
+            # insert the note information in the notes database
             cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
             con.commit()
 
@@ -211,10 +209,29 @@ def myMemoiries():
     else:
         return redirect("/login")
 
+# edit
+@app.route("/edit", methods=["POST"])
+def edit():
+
+    # connect to the database
+    con = sqlite3.connect("memories.db")
+    cur = con.cursor()
+
+    # get the edited note information
+    noteId = request.form['noteId']
+    noteName = request.form['noteName']
+    note = request.form['note']
+
+    # update the note information from the database
+    cur.execute("UPDATE notes SET noteName = ?, note = ? WHERE noteID = ?", (noteName, note, noteId))
+    con.commit()
+
+    # send the data of the note that need to be updated
+    return jsonify({'result': 'success', 'noteId': noteId, 'noteName': noteName, 'note': note})
+
 # profile
 @app.route("/profile")
 def profile():
-
     
     # check if the user is logged in
     if session.get('user_id'):
