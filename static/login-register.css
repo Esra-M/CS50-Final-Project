@@ -1,12 +1,12 @@
 :root {
-    --main-color:rgb(199, 255, 236);
-    --field-color: rgb(221, 253, 242);
-    --heading-color: hsl(184, 100%, 6%);
-    --lightheading-color: hsl(184, 100%, 6%, .5);
+    --main-color: rgb(199, 255, 236);
+    --main-light-color: rgb(221, 253, 242);
+    --dark-color: #001e20;
     --text-color: white;
-  }
+    --main-font: 'Dancing Script', cursive;
+}
 
-body{
+body {
     background-color: var(--main-color);
     display: flex;
     justify-content: center;
@@ -15,19 +15,19 @@ body{
     height: 100vh;
 }
 
-.form{
+.form {
     width: min(20rem, 90vw);
     display: flex;
     flex-direction: column;
     align-items: stretch;
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
-    background-color: var(--field-color);
+    background-color: var(--main-light-color);
     border-radius: 10px;
     padding-bottom: 1vh;
     font-size: 20px;
 }
 
-.form *{
+.form * {
     font-size: 15px;
     padding: 1vh min(1vw, 2%);
     margin: 0 min(3rem, 10%) 2vh;
@@ -35,11 +35,11 @@ body{
     border-radius: 5px;
 }
 
-.form h1{
-    font-family: 'Dancing Script', cursive;
+.form h1 {
+    font-family: var(--main-font);
     align-items: center;
     color: var(--text-color);
-    background-color: var(--heading-color);
+    background-color: var(--dark-color);
     text-align: center;
     font-size: 45px;
     padding: 2vh 0;
@@ -49,52 +49,57 @@ body{
     border-top-right-radius: 9px;
 }
 
-input[type=text], input[type=password]{
-    background-color: var(--field-color);
-    color: var(--heading-color);
+input[type=text],
+input[type=password] {
+    background-color: var(--main-light-color);
+    color: var(--dark-color);
     border-bottom: 1px solid black;
     opacity: .9;
 }
 
-input[type=text]::placeholder, input[type=password]::placeholder{
-    color: var(--heading-color);
+input[type=text]::placeholder,
+input[type=password]::placeholder {
+    color: var(--dark-color);
 }
 
-input[type=text]:hover, input[type=password]:hover{
+input[type=text]:hover,
+input[type=password]:hover {
     opacity: 1;
 }
 
-input[type=text]:focus, input[type=password]:focus{
+input[type=text]:focus,
+input[type=password]:focus {
     opacity: 1;
     outline: none;
 }
 
-input[type=submit]{
+input[type=submit] {
     margin-top: 1vh;
     margin-bottom: 1vh;
-    background-color: var(--heading-color);
+    background-color: var(--dark-color);
     color: var(--text-color);
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover {
     opacity: .9;
     cursor: pointer;
 }
 
-.error{
+.error {
     margin-top: -2vh;
     margin-bottom: .5vh;
     padding: 0 1vw;
-    background-color:  var(--lightheading-color);
+    background-color: var(--dark-color);
+    opacity: .5;
 }
 
-.message a{
+.message a {
     margin: -5px;
     text-decoration: none;
-    color: var(--heading-color);
+    color: var(--dark-color);
     opacity: .8;
 }
 
-.message a:hover{
+.message a:hover {
     opacity: 1;
 }

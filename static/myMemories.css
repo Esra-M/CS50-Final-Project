@@ -33,35 +33,64 @@ main {
     flex-direction: column;
     border-radius: 10px;
     font-size: 20px;
-    box-shadow: 0 0 30px -10px rgb(0, 0, 0);
+    box-shadow: 0 0 20px -10px rgb(0, 0, 0);
     background-color: var(--main-light-color);
     white-space: pre-wrap;
 }
 
 .note:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+    box-shadow: 0 0 20px -5px rgb(0, 0, 0);
     cursor: pointer;
 }
 
+.note:hover>.note-heading .note-heading-text {
+    width: 10rem;
+}
+
+.note:hover>.delete {
+    display: initial;
+}
+
 .note-heading {
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     background-color: var(--dark-color);
     color: white;
+    padding: 10px 1rem;
+    min-height: 43px;
+}
+
+.note-heading-text {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .note-content {
     word-wrap: break-word;
     overflow: hidden;
     column-width: 100vw;
-    padding: 10px;
+    padding: 10px 1rem;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.delete {
+    display: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: white;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.delete:hover {
+    opacity: .7;
 }
 
 .overDisplay {
@@ -84,7 +113,7 @@ main {
     width: min(85%, 40rem);
     height: min(500px, 70%);
     margin-top: 10vh;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 0 30px -10px rgb(0, 0, 0);
     background-color: var(--main-light-color);
     z-index: 1;
@@ -119,6 +148,8 @@ main {
 .noteEdit-content {
     height: 100%;
     font-size: 15px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
 }
 
 .saveEdit {
@@ -141,12 +172,12 @@ main {
 }
 
 .noteEdit-heading::-webkit-scrollbar {
-    width: .1rem;
-    background-color: var(--dark-color);
+    display: none;
 }
 
 .noteEdit-content::-webkit-scrollbar {
     width: .1rem;
+    height: 30px;
     background-color: var(--main-light-color);
 }
 

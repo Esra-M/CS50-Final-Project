@@ -1,13 +1,11 @@
 :root {
-    --main-color:rgb(199, 255, 236);
-    --field-color: #001e20;
-    --heading-color: #001e20;
+    --main-color: rgb(199, 255, 236);
+    --main-light-color: rgb(221, 253, 242);
+    --dark-color: #001e20;
     --text-color: white;
-    --secondary-color: white;
-    --secondary-dark-color: #001e20;
 }
 
-main{
+main {
     display: flex;
     justify-content: center;
     align-items: center;

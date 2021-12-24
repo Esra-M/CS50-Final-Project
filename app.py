@@ -229,6 +229,26 @@ def edit():
     # send the data of the note that need to be updated
     return jsonify({'result': 'success', 'noteId': noteId, 'noteName': noteName, 'note': note})
 
+@app.route("/delete", methods=["POST"])
+def delete():
+
+    # connect to the database
+    con = sqlite3.connect("memories.db")
+    cur = con.cursor()
+
+    # get the edited note information
+    noteId = request.form['noteId']
+
+    print("*****************")
+    print(noteId)
+
+    # update the note information from the database
+    cur.execute("DELETE FROM notes WHERE noteID = ?", (noteId,))
+    con.commit()
+
+    # send the data of the note that need to be updated
+    return jsonify({'result': 'success', 'noteId': noteId})
+
 # profile
 @app.route("/profile")
 def profile():

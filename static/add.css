@@ -52,6 +52,7 @@ main {
 .note-content {
     height: 100%;
     font-size: 15px;
+    margin-bottom: 10px;
 }
 
 .save {
@@ -74,8 +75,7 @@ main {
 }
 
 .note-heading::-webkit-scrollbar {
-    width: .1rem;
-    background-color: var(--dark-color);
+    display: none;
 }
 
 .note-content::-webkit-scrollbar {
