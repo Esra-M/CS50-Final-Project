@@ -27,10 +27,11 @@ def after_request(response):
 @app.route("/", methods=["GET", "POST"])
 def index():
     
+    # connect to the database
     con = sqlite3.connect("memories.db")
     cur = con.cursor()
 
-    # if logged in display the name of the user and give option to log out
+    # check if the user is logged in
     if session.get('user_id'):
         logged = True
 
@@ -40,13 +41,15 @@ def index():
         username = " " + cur.fetchall()[0][0]
         con.commit()
 
-        return render_template("index.html", username=username, logged=logged)
-    else:
-        # if not logged in don't display the users name and give options to log in and register
-        username=""
-        logged = False
-        return render_template("index.html", username=username, logged=logged)
+        # select the users notes
+        cur.execute("SELECT * FROM notes WHERE userID = ?", (userID,))
+        rows = cur.fetchall()
+        con.commit()
 
+        return render_template("index.html", logged=logged, rows=rows, username=username)
+    
+    else:
+        return redirect("/login")
 
 # login
 @app.route("/login",  methods=["GET", "POST"])
@@ -186,29 +189,6 @@ def add():
     else:
         return render_template("add.html", logged=logged)
 
-# my memories
-@app.route("/myMemoiries")
-def myMemoiries():
-
-    # connect to the database
-    con = sqlite3.connect("memories.db")
-    cur = con.cursor()
-
-    # check if the user is logged in
-    if session.get('user_id'):
-        logged = True
-        userID = session['user_id']
-
-        # select the users notes
-        cur.execute("SELECT * FROM notes WHERE userID = ?", (userID,))
-        rows = cur.fetchall()
-        con.commit()
-
-        return render_template("myMemories.html", logged=logged, rows=rows)
-    
-    else:
-        return redirect("/login")
-
 # edit
 @app.route("/edit", methods=["POST"])
 def edit():
@@ -229,6 +209,7 @@ def edit():
     # send the data of the note that need to be updated
     return jsonify({'result': 'success', 'noteId': noteId, 'noteName': noteName, 'note': note})
 
+# delete
 @app.route("/delete", methods=["POST"])
 def delete():
 
@@ -236,18 +217,16 @@ def delete():
     con = sqlite3.connect("memories.db")
     cur = con.cursor()
 
-    # get the edited note information
-    noteId = request.form['noteId']
-
-    print("*****************")
-    print(noteId)
-
-    # update the note information from the database
-    cur.execute("DELETE FROM notes WHERE noteID = ?", (noteId,))
-    con.commit()
+    # get the deleted notes information
+    noteIds = request.form.getlist('noteIds[]')
+    
+    # delete the notes from the database
+    for noteId in noteIds:
+        cur.execute("DELETE FROM notes WHERE noteID = ?", (noteId,))
+        con.commit()
 
     # send the data of the note that need to be updated
-    return jsonify({'result': 'success', 'noteId': noteId})
+    return jsonify({'result': 'success'})
 
 # profile
 @app.route("/profile")
