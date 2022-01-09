@@ -1,9 +1,18 @@
 :root {
-    --main-color: rgb(199, 255, 236);
-    --main-light-color: rgb(221, 253, 242);
-    --dark-color: #001e20;
-    --text-color: white;
+    --main-color: #f4dec8;
+    --main-light-color: #f8eee7;
+    --dark-color: #49222f;
+    --text-light-color: white;
+    --text-dark-color: black;
     --main-font: 'Dancing Script', cursive;
+}
+
+.dark-mode {
+    --main-color: rgb(46, 46, 46);
+    --main-light-color: #474747;
+    --dark-color: #020202;
+    --text-light-color: white;
+    --text-dark-color: white;
 }
 
 body {
@@ -12,10 +21,11 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    height: 100vh;
+    height: 90vh;
 }
 
 .form {
+    /* position: relative; */
     width: min(20rem, 90vw);
     display: flex;
     flex-direction: column;
@@ -33,12 +43,13 @@ body {
     margin: 0 min(3rem, 10%) 2vh;
     border: none;
     border-radius: 5px;
+    color: var(--text-dark-color);
 }
 
 .form h1 {
     font-family: var(--main-font);
     align-items: center;
-    color: var(--text-color);
+    color: var(--text-light-color);
     background-color: var(--dark-color);
     text-align: center;
     font-size: 45px;
@@ -52,14 +63,26 @@ body {
 input[type=text],
 input[type=password] {
     background-color: var(--main-light-color);
-    color: var(--dark-color);
+    color: var(--text-dark-color);
     border-bottom: 1px solid black;
     opacity: .9;
 }
 
+.pass-field {
+    position: relative;
+    padding: 0;
+    height: 40px;
+}
+
+.pass-field input[type=password],
+.pass-field input[type=text] {
+    margin-left: 0;
+    width: 100%;
+}
+
 input[type=text]::placeholder,
 input[type=password]::placeholder {
-    color: var(--dark-color);
+    color: var(--text-dark-color);
 }
 
 input[type=text]:hover,
@@ -77,7 +100,7 @@ input[type=submit] {
     margin-top: 1vh;
     margin-bottom: 1vh;
     background-color: var(--dark-color);
-    color: var(--text-color);
+    color: var(--text-light-color);
 }
 
 input[type=submit]:hover {
@@ -89,6 +112,7 @@ input[type=submit]:hover {
     margin-top: -2vh;
     margin-bottom: .5vh;
     padding: 0 1vw;
+    color: white;
     background-color: var(--dark-color);
     opacity: .5;
 }
@@ -96,10 +120,22 @@ input[type=submit]:hover {
 .message a {
     margin: -5px;
     text-decoration: none;
-    color: var(--dark-color);
+    color: var(--dark-light-color);
     opacity: .8;
 }
 
 .message a:hover {
     opacity: 1;
+}
+
+.visible {
+    position: absolute;
+    top: 20%;
+    right: -1rem;
+    padding: 0;
+    opacity: .5;
+}
+
+.bi-eye {
+    display: none;
 }

@@ -1,8 +1,18 @@
 :root {
-    --main-color: rgb(199, 255, 236);
-    --dark-color: #001e20;
-    --text-color: white;
+    --main-color: #f4dec8;
+    --main-light-color: #f8eee7;
+    --dark-color: #49222f;
+    --text-light-color: white;
+    --text-dark-color: rgb(0, 0, 0);
     --main-font: 'Dancing Script', cursive;
+}
+
+.dark-mode {
+    --main-color: rgb(46, 46, 46);
+    --main-light-color: #474747;
+    --dark-color: #020202;
+    --text-light-color: white;
+    --text-dark-color: white;
 }
 
 * {
@@ -21,10 +31,10 @@ nav {
 
 nav * {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-light-color);
 }
 
-.container {
+.nav-container {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
@@ -33,7 +43,12 @@ nav * {
 }
 
 .navbar-links {
-    margin-right: auto;
+    margin-left: auto;
+}
+
+.navbar-links svg {
+    width: 20px;
+    height: 20px;
 }
 
 .navbar-links ul,
@@ -51,13 +66,15 @@ nav * {
 .navbar-links a,
 .login a {
     margin-top: 5px;
-    padding: 1rem;
+    padding: 1rem 0 0 1rem;
+    padding-bottom: 0;
     display: block;
 }
 
-nav a:hover {
-    color: var(--main-color);
-    opacity: .9;
+nav a:hover,
+.navbar-links svg:hover {
+    color: var(--text-light-color);
+    opacity: .8;
 }
 
 .title {
@@ -65,52 +82,4 @@ nav a:hover {
     font-size: 2rem;
     margin: .5rem;
     font-family: var(--main-font);
-}
-
-.toggle-button {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 22px;
-    position: absolute;
-    top: 1rem;
-    right: 5%;
-}
-
-.toggle-button .bar {
-    height: 3px;
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
-}
-
-@media (max-width: 600px) {
-    .toggle-button {
-        display: flex;
-    }
-    .navbar-links,
-    .login {
-        display: none;
-        justify-content: center;
-        text-align: center;
-    }
-    .navbar-links,
-    .navbar-links ul,
-    .login ul {
-        width: 100%;
-    }
-    .container,
-    .navbar-links ul,
-    .login ul {
-        flex-direction: column;
-    }
-    .navbar-links a,
-    .login a {
-        padding: .5rem;
-    }
-    .navbar-links.active,
-    .login.active {
-        display: flex;
-    }
 }

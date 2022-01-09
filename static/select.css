@@ -1,0 +1,58 @@
+.selector {
+    display: none;
+    position: absolute;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    top: 25%;
+    left: 5%;
+    border: 2px solid white;
+}
+
+.selected>.note-heading .selector {
+    background-color: white;
+}
+
+.selectorCount {
+    display: none;
+    position: relative;
+    margin-right: auto;
+    width: 10rem;
+    padding: 0 1rem;
+    font-size: 1.3rem;
+    border-radius: 15px;
+    color: var(--text-light-color);
+    background-color: black;
+    opacity: .5;
+}
+
+.closeSelector {
+    position: absolute;
+    top: 0;
+    right: .7rem;
+    width: 30px;
+    height: 30px;
+}
+
+.closeSelector:before,
+.closeSelector:after {
+    position: absolute;
+    right: .7rem;
+    top: 5px;
+    content: ' ';
+    height: 20px;
+    width: 3px;
+    background-color: white;
+}
+
+.closeSelector:before {
+    transform: rotate(-45deg);
+}
+
+.closeSelector:after {
+    transform: rotate(45deg);
+}
+
+.closeSelector:hover {
+    opacity: .5;
+}

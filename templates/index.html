@@ -6,16 +6,23 @@ Memories
 
 {% block styles %}
 <link href="/static/nav.css" rel="stylesheet">
+<link href="/static/note.css" rel="stylesheet">
+<link href="/static/select.css" rel="stylesheet">
+<link href="/static/settings.css" rel="stylesheet">
 <link href="/static/index.css" rel="stylesheet">
-{% endblock %}s
+
+{% endblock %}
 
 
 {% block main %}
 <main>
 
-  {% if rows|length > 0 %}
-
+  <!-- toolbar -->
   <div class="toolbar">
+    <div class="alert alert-dark alert-dismissible fade show" role="alert"></div>
+
+    {% if rows|length > 0 %}
+
     <div class="selectorCount">
       <span></span>
       <div class="closeSelector"></div>
@@ -27,7 +34,18 @@ Memories
             d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
         </svg>
       </div>
-      <div class="add add-btn"></div>
+      <div class="add-btn">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg "
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+          </svg>
+        </div>
+      </div>
+      <div class="exit-btn">
+        <div class="closeSelector"></div>
+      </div>
       <div class="delete-btn">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
           <path
@@ -35,11 +53,23 @@ Memories
         </svg>
       </div>
     </div>
+    {% endif %}
   </div>
 
+  <!-- message for new users -->
+  {% if rows|length == 0 %}
+  <div class="message">
+    <h1>Hello {{ username }}!</h1>
+    <div>You don't have any memories yet</div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="add bi bi-plus"
+      viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+    </svg>
+  </div>
+  {% endif %}
 
+  <!-- notes -->
   <div class="grid-container">
-
     {% for row in rows %}
 
     <div class="note" id={{ row[0] }}>
@@ -57,37 +87,111 @@ Memories
     </div>
 
     {% endfor %}
-
   </div>
 
   <div class="overDisplay"></div>
 
+  <!-- note for edit -->
   <div class="noteEdit">
-    <div class="noteEdit-r1">
-      <textarea autofocus class="noteEdit-heading" maxlength="50" spellcheck="false" rows="1"></textarea>
-      <button class="saveEdit">
+    <div class="big-note-r1">
+      <textarea class="noteEdit-heading big-note-heading" maxlength="50" spellcheck="false" rows="1"></textarea>
+      <button class="save saveEdit">
         Save
       </button>
     </div>
-    <textarea class="noteEdit-content" spellcheck="false"></textarea>
+    <textarea class="noteEdit-content big-note-content" spellcheck="false"></textarea>
   </div>
 
-  {% else %}
-  <div class="message">
-    <h1>Hello{{ username }}!</h1>
-    <div>You don't have any memories yet</div>
+  <!-- new note -->
+  <form action="/add" method="post" class="addNote" id="addNote">
+    <div class="big-note-r1">
+      <textarea class="big-note-heading" maxlength="50" spellcheck="false" rows="1" name="new-note-heading"></textarea>
+      <button class="save" type="submit" form="addNote">
+        Save
+      </button>
+    </div>
+    <textarea class="big-note-content" spellcheck="false" name="new-note-content"></textarea>
+  </form>
 
-    <div class="add"></div>
+  <!-- settings -->
+  <div class="settings">
+    <h1>Settings</h1>
+    <div>
+      <div class="heading">General</div>
+      <div class="theme">
+        <label>Dark Mode</label>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+    </div>
+    <form id="account">
+      <div class="heading">
+        Account
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+          class="bi bi-pencil-square edit-account" viewBox="0 0 16 16">
+          <path
+            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+          <path fill-rule="evenodd"
+            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+        </svg>
+      </div>
+      <div class="account">
+        <div class="change-username">
+          <div>Username:</div>
+          <input type="text" class="username" name="username" value="{{ username }}" minlength="3" disabled>
+        </div>
+        <p class="userError">Username is not available</p>
+        <div class="change-pass">
+          <div class="current-pass">
+            <div>Current Password:</div>
+            <input type="password" class="password" name="password" minlength="3" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="visible bi bi-eye-slash" viewBox="0 0 16 16">
+              <path
+                d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+              <path
+                d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+              <path
+                d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="visible bi bi-eye"
+              viewBox="0 0 16 16">
+              <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+            </svg>
+          </div>
+          <p class="passError">Password is incorrect</p>
+          <div class="new-pass">
+            <div>New Password:</div>
+            <input type="password" class="password new-pass" name="new-pass" minlength="3" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="visible bi bi-eye-slash" viewBox="0 0 16 16">
+              <path
+                d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+              <path
+                d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+              <path
+                d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="visible bi bi-eye"
+              viewBox="0 0 16 16">
+              <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+            </svg>
+          </div>
+        </div>
+        <p class="newPassError">Please enter a new password</p>
+      </div>
+      <input type="submit" value="Save changes" class="save-changes" disabled>
+    </form>
   </div>
-
-
-
-  {% endif %}
 
 </main>
 
 {% endblock %}
 
 {% block js %}
-<script src="{{url_for('static', filename='index.js')}}"></script>
 {% endblock %}

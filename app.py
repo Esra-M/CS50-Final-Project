@@ -3,7 +3,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
 from tempfile import mkdtemp
 import sqlite3
-import random
 
 # Configure application
 app = Flask(__name__)
@@ -38,7 +37,7 @@ def index():
         # get the users name
         userID = session['user_id']
         cur.execute("SELECT username FROM users WHERE userID = ?", (userID,))
-        username = " " + cur.fetchall()[0][0]
+        username = cur.fetchall()[0][0]
         con.commit()
 
         # select the users notes
@@ -156,38 +155,26 @@ def logout():
     return redirect("/")
 
 # add
-@app.route("/add",  methods=["GET", "POST"])
+@app.route("/add",  methods=["POST"])
 def add():
 
     # connect to the database
     con = sqlite3.connect("memories.db")
     cur = con.cursor()
-
-    # check if the user is logged in
-    if session.get('user_id'):
-        logged = True
-    else:
-        logged = False
-        return redirect("/login")
-
-    if request.method == "POST":
         
-        # get the note information from the form
-        noteName = request.form.get("note-heading")
-        note = request.form.get("note-content")
+    # get the note information from the form
+    noteName = request.form.get("new-note-heading")
+    note = request.form.get("new-note-content")
 
-        # check if the user is logged in
-        if session.get('user_id'):
-            # get the user id
-            userID = session['user_id']
-            
-            # insert the note information in the notes database
-            cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
-            con.commit()
+    # get the user id
+    userID = session['user_id']
+    
+    # insert the note information in the notes database
+    cur.execute("INSERT INTO notes(noteName, note, userID) VALUES(?, ?, ?)", (noteName, note, userID))
+    con.commit()
 
-        return redirect("/")
-    else:
-        return render_template("add.html", logged=logged)
+    return redirect("/")
+    
 
 # edit
 @app.route("/edit", methods=["POST"])
@@ -228,15 +215,90 @@ def delete():
     # send the data of the note that need to be updated
     return jsonify({'result': 'success'})
 
-# profile
-@app.route("/profile")
-def profile():
+# edit account
+@app.route("/account", methods=["POST"])
+def account():
     
-    # check if the user is logged in
-    if session.get('user_id'):
-
-        logged = True
+    # connect to the database
+    con = sqlite3.connect("memories.db")
+    cur = con.cursor()
         
-        return render_template("profile.html", logged=logged)
-    else:
-        return redirect("/login")
+    # get the user information
+    username = request.form["username"]
+    password = request.form["password"]
+    newPassword = request.form["newPass"]
+
+    # get the user id
+    userID = session['user_id']
+
+    # set error variables for validation of the registration form
+    userError = False
+    passError = False
+    newPassError = False
+
+    # set variables for the updated user information labels
+    userChange = False
+    passChange = False
+
+    # select the same usernames from the database
+    cur.execute("SELECT Count(*) FROM users WHERE lower(username) = ?", (username.lower(),))
+    numOfRows=cur.fetchone()
+
+    # select the users current password and username from the database
+    cur.execute("SELECT * FROM users WHERE userID = ?", (userID,))
+    rows = cur.fetchall()
+    con.commit()
+    oldPassHash = rows[0][2]
+    oldUsername = rows[0][1]
+
+    # check new username has been entered
+    if oldUsername != username:
+        # check if the username is free
+        if numOfRows[0] == 0:
+            # update the username
+            cur.execute("UPDATE users SET username = ? WHERE userID = ?", (username, userID))
+            con.commit()
+
+            # set the label variable for the username change
+            userChange = True
+        else:
+            # set error message for the username
+            userError = True
+            # return jsonify({'result': 'success', 'nameError': nameError, 'passError': ""})
+
+
+    # check if password has been entered
+    if len(password) != 0:
+
+        # check if new password has been entered
+        if len(newPassword) != 0:
+            # check if the password matches
+            if check_password_hash(oldPassHash, password):
+
+                # make sure the new password is not the same as the current one
+                if newPassword != password:
+                
+                    # hash the new password
+                    passwordHash = generate_password_hash(newPassword)
+
+                    # update the password
+                    cur.execute("UPDATE users SET passwordHash = ? WHERE userID = ?", (passwordHash, userID))
+                    con.commit()
+
+                    # set the label variable for the password change
+                    passChange = True
+                else:
+                    # set error message for the password
+                    newPassError = True
+            else:
+                # set error message for the password
+                passError = True
+        else:
+            # set error message for the new password
+            newPassError = True
+
+    # return the error messages and the labels with the changes
+    return jsonify({'result': 'success','passError': passError, "newPassError": newPassError, 'userError': userError, 'userChange': userChange, 'passChange': passChange})
+
+if __name__ == '__main__':
+    app.run()
